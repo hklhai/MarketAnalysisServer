@@ -18,7 +18,7 @@ $(function(){
             break;
         //图书
         case "book":
-            url = "http://119.90.53.151:5601/app/kibana#/dashboard/0463ecf0-63b8-11e8-91a6-8dc4e1d30ce2?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now%2Fd,mode:quick,to:now%2Fd))&amp;_a=(description:%E4%BA%A4%E4%BA%92%E5%BC%8F%E6%9F%A5%E8%AF%A2-----%E5%9B%BE%E4%B9%A6,filters:!(),fullScreenMode:!f,options:(darkTheme:!f,hidePanelTitles:!f,useMargins:!t),panels:!((gridData:(h:3,i:'1',w:12,x:0,y:0),id:'32e53970-63af-11e8-91a6-8dc4e1d30ce2',panelIndex:'1',type:visualization,version:'6.1.2'),(gridData:(h:3,i:'2',w:12,x:0,y:3),id:e70e97c0-63af-11e8-91a6-8dc4e1d30ce2,panelIndex:'2',type:visualization,version:'6.1.2')),query:(language:lucene,query:'category:"+taskId+"'),timeRestore:!f,title:%E4%BA%A4%E4%BA%92%E5%BC%8F%E6%9F%A5%E8%AF%A2-----%E5%9B%BE%E4%B9%A6,uiState:(),viewMode:view)";
+            url = "http://119.90.53.151:5601/app/kibana#/dashboard/0463ecf0-63b8-11e8-91a6-8dc4e1d30ce2?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now%2Fd,mode:quick,to:now%2Fd))&amp;_a=(description:%E4%BA%A4%E4%BA%92%E5%BC%8F%E6%9F%A5%E8%AF%A2-----%E5%9B%BE%E4%B9%A6,filters:!(),fullScreenMode:!f,options:(darkTheme:!f,hidePanelTitles:!f,useMargins:!t),panels:!((gridData:(h:3,i:'1',w:12,x:0,y:0),id:'32e53970-63af-11e8-91a6-8dc4e1d30ce2',panelIndex:'1',type:visualization,version:'6.1.2'),(gridData:(h:3,i:'2',w:12,x:0,y:3),id:e70e97c0-63af-11e8-91a6-8dc4e1d30ce2,panelIndex:'2',type:visualization,version:'6.1.2')),query:(language:lucene,query:'taskid:"+taskId+"'),timeRestore:!f,title:%E4%BA%A4%E4%BA%92%E5%BC%8F%E6%9F%A5%E8%AF%A2-----%E5%9B%BE%E4%B9%A6,uiState:(),viewMode:view)";
             break;
         //电影，综艺，电视剧
         default:
