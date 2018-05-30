@@ -55,31 +55,37 @@ $(function(){
                             case 'unsubmit':
                                 str+='</td><td>未提交';
                                 str+='</td><td style="display: none;">'+lists[i].taskid;
+                                str+='</td><td style="display: none;">'+lists[i].taskParam.split(",")[2].split(":")[1].replace(/\"/g," ");
                                 str+='</td><td>提交</td></tr>';
                                 break;
                             case 'undo':
                                 str+='</td><td>未执行';
                                 str+='</td><td style="display: none;">'+lists[i].taskid;
+                                str+='</td><td style="display: none;">'+lists[i].taskParam.split(",")[2].split(":")[1].replace(/\"/g," ");
                                 str+='</td><td></td></tr>';
                                 break;
                             case 'running':
                                 str+='</td><td>运行中';
                                 str+='</td><td style="display: none;">'+lists[i].taskid;
+                                str+='</td><td style="display: none;">'+lists[i].taskParam.split(",")[2].split(":")[1].replace(/\"/g," ");
                                 str+='</td><td></td></tr>';
                                 break;
                             case 'finish':
                                 str+='</td><td>已完成';
                                 str+='</td><td style="display: none;">'+lists[i].taskid;
+                                str+='</td><td style="display: none;">'+lists[i].taskParam.split(",")[2].split(":")[1].replace(/\"/g," ");
                                 str+='</td><td>生成报告</td></tr>';
                                 break;
                             case 'taskfail':
                                 str+='</td><td>任务失败';
                                 str+='</td><td style="display: none;">'+lists[i].taskid;
+                                str+='</td><td style="display: none;">'+lists[i].taskParam.split(",")[2].split(":")[1].replace(/\"/g," ");
                                 str+='</td><td></td></tr>';
                                 break;
                             default:
                                 str+='</td><td>无数据';
                                 str+='</td><td style="display: none;">'+lists[i].taskid;
+                                str+='</td><td style="display: none;">'+lists[i].taskParam.split(",")[2].split(":")[1].replace(/\"/g," ");
                                 str+='</td><td></td></tr>';
                                 break;
                         }
@@ -99,14 +105,16 @@ $(function(){
             var basic_url = self.getRootPath_web();
             $('table.table tbody').on('click','tr>td:last-child',function(event){
                 var $lastTd = $(this);
-                var $status = $(this).siblings().eq(-2);
-                var taskId = $(this).siblings().eq(-1).text();
+                var $status = $(this).siblings().eq(-3);
+                var taskId = $(this).siblings().eq(-2).text();
+                var category = $(this).siblings().eq(-1).text();
+                localStorage.setItem("market_category", category);
                 if($lastTd.text()=='提交'){
                     $.ajax({
                         type: 'post',
                         url: basic_url+'/system/submitTask',
                         data: {
-                            taskid: taskId
+                            taskid: taskId,
                         },
                         dataType: 'json',
                         success: function(data){
