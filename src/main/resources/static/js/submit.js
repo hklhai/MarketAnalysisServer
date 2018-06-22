@@ -160,6 +160,9 @@ $(function(){
                                 alert('添加成功！');
                                 self.initTask();
                                 self.tbodyEvent();
+                                setTimeout(function(){
+                                    window.location.reload();
+                                },60000)
                             }else{
                                 alert('添加失败！');
                             }
