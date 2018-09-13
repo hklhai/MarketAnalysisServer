@@ -3,6 +3,7 @@ package com.hxqh.ma.service;
 import com.hxqh.ma.model.Task;
 import com.hxqh.ma.model.User;
 import com.hxqh.ma.model.assist.Show;
+import com.hxqh.ma.model.assist.StatusDto;
 import com.hxqh.ma.model.assist.TaskDto;
 import org.springframework.data.domain.Pageable;
 
@@ -21,4 +22,6 @@ public interface SystemService {
     void saveTask(Task task);
 
     Show showData(Long taskid);
+
+    StatusDto statusData(Pageable pageable);
 }

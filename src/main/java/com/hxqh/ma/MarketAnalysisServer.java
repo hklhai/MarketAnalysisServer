@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 
-///**
-// * Debug
-// * SpringBoot mode
-// */
+/**
+ * Debug
+ * SpringBoot mode
+ */
 //@SpringBootApplication
 //@ComponentScan(basePackages = "com.hxqh.ma.**.*")
 //@RestController

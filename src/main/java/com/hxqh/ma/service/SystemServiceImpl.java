@@ -1,25 +1,15 @@
 package com.hxqh.ma.service;
 
-import com.hxqh.ma.model.BaiduInfo;
-import com.hxqh.ma.model.CrawlerDoubanScore;
-import com.hxqh.ma.model.Task;
-import com.hxqh.ma.model.User;
+import com.hxqh.ma.model.*;
 import com.hxqh.ma.model.assist.Show;
+import com.hxqh.ma.model.assist.StatusDto;
 import com.hxqh.ma.model.assist.TaskDto;
-import com.hxqh.ma.repository.BaiduInfoRepository;
-import com.hxqh.ma.repository.CrawlerDoubanSocreRepository;
-import com.hxqh.ma.repository.TaskRepository;
-import com.hxqh.ma.repository.UserRepository;
-import org.elasticsearch.action.search.SearchResponse;
+import com.hxqh.ma.repository.*;
 import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,11 +33,15 @@ public class SystemServiceImpl implements SystemService {
     private CrawlerDoubanSocreRepository crawlerDoubanSocreRepository;
     @Autowired
     private TransportClient client;
+    @Autowired
+    private StatusRepository statusRepository;
 
+    @Override
     public User findUserById(String name) {
         return userDao.findUserById(name);
     }
 
+    @Override
     @Transactional
     public void addTask(Task task) {
         taskRepository.save(task);
@@ -56,11 +50,23 @@ public class SystemServiceImpl implements SystemService {
     @Override
     public TaskDto taskData(Task task, Pageable page) {
         Page<Task> taskList = taskRepository.findAll(page);
-        List<Task> users = taskList.getContent();//获取结果集
+        //获取结果集
+        List<Task> users = taskList.getContent();
         Integer totalPages = taskList.getTotalPages();
         TaskDto taskDto = new TaskDto(users, page, totalPages);
         return taskDto;
     }
+
+    @Override
+    public StatusDto statusData(Pageable pageable) {
+        Page<Status> statuses = statusRepository.findAll(pageable);
+        //获取结果集
+        List<Status> statusList = statuses.getContent();
+        Integer totalPages = statuses.getTotalPages();
+        StatusDto statusDto = new StatusDto(statusList, pageable, totalPages);
+        return statusDto;
+    }
+
 
     @Modifying
     @Transactional
