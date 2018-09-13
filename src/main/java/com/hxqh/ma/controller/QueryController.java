@@ -41,6 +41,16 @@ public class QueryController {
      *
      * @return
      */
+    @RequestMapping(value = "/status", method = RequestMethod.GET)
+    public String status() {
+        return "market/bigData";
+    }
+
+    /**
+     * 报告跳转接口
+     *
+     * @return
+     */
     @RequestMapping(value = "/report", method = RequestMethod.GET)
     public String report() {
         return "reports/report";
