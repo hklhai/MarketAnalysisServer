@@ -105,6 +105,7 @@ $(function(){
             var basic_url = self.getRootPath_web();
             $('table.table tbody').on('click','tr>td:last-child',function(event){
                 var $lastTd = $(this);
+                var trIndex = $lastTd.parents("tr").index();
                 var $status = $(this).siblings().eq(-3);
                 var taskId = $(this).siblings().eq(-2).text();
                 var category = $(this).siblings().eq(-1).text();
@@ -121,6 +122,14 @@ $(function(){
                             if(data.code==1){
                                 $lastTd.text('已提交');
                                 $status.text('未执行');
+                                clearInterval(timer);
+                                var timer = setInterval(function(){
+                                    self.initTask();
+                                    var txt = $("table.table tbody tr").eq(trIndex).find("td").eq(2).text();
+                                    if(txt=="已完成"||txt=="任务失败"||txt=="无数据"){
+                                        clearInterval(timer);
+                                    }
+                                },5000);
                             }
                             return false;
                         }
@@ -156,13 +165,17 @@ $(function(){
                         },
                         dataType: 'json',
                         success: function(data){
+
                             if(data.code==1){
                                 alert('添加成功！');
+
+                                //清空查询数据
+                                $(".queryBox .category #film").prop("checked", true);
+                                $(".queryBox .description .names").val("");
+                                $("#datetimepicker7").val("");
+                                $("#datetimepicker8").val("");
                                 self.initTask();
                                 self.tbodyEvent();
-                                setTimeout(function(){
-                                    window.location.reload();
-                                },60000)
                             }else{
                                 alert('添加失败！');
                             }
@@ -201,7 +214,7 @@ $(function(){
                 var totalPage = self.totalPage;
                 var gotoPage = $("#curPage").val();
                 if (gotoPage < 1 || gotoPage > totalPage) {
-                    alert("请输入正确的页数！")
+                   alert("请输入正确的页数！")
                 } else {
                     self.pageNumber = gotoPage;
                     self.initTask();
