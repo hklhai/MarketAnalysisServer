@@ -18,35 +18,35 @@ import org.springframework.web.bind.annotation.RestController;
  * Debug
  * SpringBoot mode
  */
-@SpringBootApplication
-@ComponentScan(basePackages = "com.hxqh.ma.**.*")
-@RestController
-public class MarketAnalysisServer extends SpringBootServletInitializer implements EmbeddedServletContainerCustomizer {
-    public static void main(String[] args) {
-        SpringApplication.run(MarketAnalysisServer.class, args);
-    }
-
-    @Override
-    public void customize(ConfigurableEmbeddedServletContainer container) {
-        container.setPort(8090);
-    }
-}
+//@SpringBootApplication
+//@ComponentScan(basePackages = "com.hxqh.ma.**.*")
+//@RestController
+//public class MarketAnalysisServer extends SpringBootServletInitializer implements EmbeddedServletContainerCustomizer {
+//    public static void main(String[] args) {
+//        SpringApplication.run(MarketAnalysisServer.class, args);
+//    }
+//
+//    @Override
+//    public void customize(ConfigurableEmbeddedServletContainer container) {
+//        container.setPort(8090);
+//    }
+//}
 
 
 /**
  * Release
  * Tomcat mode
  */
-//@SpringBootApplication
-//@ComponentScan(basePackages = "com.hxqh.ma.**.*")
-//@RestController
-//public class MarketAnalysisServer extends SpringBootServletInitializer {
-//    public static void main(String[] args) {
-//        SpringApplication.run(MarketAnalysisServer.class, args);
-//    }
-//
-//    @Override
-//    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-//        return builder.sources(this.getClass());
-//    }
-//}
+@SpringBootApplication
+@ComponentScan(basePackages = "com.hxqh.ma.**.*")
+@RestController
+public class MarketAnalysisServer extends SpringBootServletInitializer {
+    public static void main(String[] args) {
+        SpringApplication.run(MarketAnalysisServer.class, args);
+    }
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(this.getClass());
+    }
+}
