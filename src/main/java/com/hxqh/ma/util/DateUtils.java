@@ -6,14 +6,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * 日期时间工具类
+ * @author Lin
+ *         日期时间工具类
  */
 public class DateUtils {
 
-    public static final SimpleDateFormat TIME_FORMAT =
-            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    public static final SimpleDateFormat DATE_FORMAT =
-            new SimpleDateFormat("yyyy-MM-dd");
+    private static final String TIME_FORMAT_STRING = "yyyy-MM-dd HH:mm:ss";
+    private static final String DATE_FORMAT_STRING = "yyyy-MM-dd";
 
     /**
      * 判断一个时间是否在另一个时间之前
@@ -24,8 +23,9 @@ public class DateUtils {
      */
     public static boolean before(String time1, String time2) {
         try {
-            Date dateTime1 = TIME_FORMAT.parse(time1);
-            Date dateTime2 = TIME_FORMAT.parse(time2);
+            SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT_STRING);
+            Date dateTime1 = timeFormat.parse(time1);
+            Date dateTime2 = timeFormat.parse(time2);
 
             if (dateTime1.before(dateTime2)) {
                 return true;
@@ -45,8 +45,9 @@ public class DateUtils {
      */
     public static boolean after(String time1, String time2) {
         try {
-            Date dateTime1 = TIME_FORMAT.parse(time1);
-            Date dateTime2 = TIME_FORMAT.parse(time2);
+            SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT_STRING);
+            Date dateTime1 = timeFormat.parse(time1);
+            Date dateTime2 = timeFormat.parse(time2);
 
             if (dateTime1.after(dateTime2)) {
                 return true;
@@ -66,8 +67,10 @@ public class DateUtils {
      */
     public static int minus(String time1, String time2) {
         try {
-            Date datetime1 = TIME_FORMAT.parse(time1);
-            Date datetime2 = TIME_FORMAT.parse(time2);
+            SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT_STRING);
+
+            Date datetime1 = timeFormat.parse(time1);
+            Date datetime2 = timeFormat.parse(time2);
 
             long millisecond = datetime1.getTime() - datetime2.getTime();
 
@@ -91,13 +94,15 @@ public class DateUtils {
         return date + "_" + hour;
     }
 
+
     /**
      * 获取当天日期（yyyy-MM-dd）
      *
      * @return 当天日期
      */
     public static String getTodayDate() {
-        return DATE_FORMAT.format(new Date());
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_STRING);
+        return dateFormat.format(new Date());
     }
 
     /**
@@ -111,8 +116,8 @@ public class DateUtils {
         cal.add(Calendar.DAY_OF_YEAR, -1);
 
         Date date = cal.getTime();
-
-        return DATE_FORMAT.format(date);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_STRING);
+        return dateFormat.format(date);
     }
 
     /**
@@ -122,7 +127,8 @@ public class DateUtils {
      * @return 格式化后的日期
      */
     public static String formatDate(Date date) {
-        return DATE_FORMAT.format(date);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_STRING);
+        return dateFormat.format(date);
     }
 
     /**
@@ -132,7 +138,8 @@ public class DateUtils {
      * @return 格式化后的时间
      */
     public static String formatTime(Date date) {
-        return TIME_FORMAT.format(date);
+        SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT_STRING);
+        return timeFormat.format(date);
     }
 
 
@@ -144,7 +151,8 @@ public class DateUtils {
      */
     public static Date parseTime(String time) {
         try {
-            return TIME_FORMAT.parse(time);
+            SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT_STRING);
+            return timeFormat.parse(time);
         } catch (ParseException e) {
             e.printStackTrace();
         }
