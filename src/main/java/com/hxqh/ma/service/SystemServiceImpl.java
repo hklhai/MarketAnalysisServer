@@ -42,7 +42,7 @@ public class SystemServiceImpl implements SystemService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void addTask(Task task) {
         taskRepository.save(task);
     }
@@ -69,7 +69,7 @@ public class SystemServiceImpl implements SystemService {
 
 
     @Modifying
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void saveTask(Task task) {
         taskRepository.save(task);

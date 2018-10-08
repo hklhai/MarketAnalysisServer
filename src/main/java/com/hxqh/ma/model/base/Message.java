@@ -2,6 +2,7 @@ package com.hxqh.ma.model.base;
 
 /**
  * Created by Ocean Lin on 2017/5/7.
+ * @author Lin
  */
 public class Message {
 
