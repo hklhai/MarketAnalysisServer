@@ -109,6 +109,7 @@ $(function(){
                 var $status = $(this).siblings().eq(-3);
                 var taskId = $(this).siblings().eq(-2).text();
                 var category = $(this).siblings().eq(-1).text();
+                var time = $(this).siblings().eq(1).text();
                 localStorage.setItem("market_category", category);
                 if($lastTd.text()=='提交'){
                     $.ajax({
@@ -136,7 +137,7 @@ $(function(){
                     });
 
                 }else if($lastTd.text()=='生成报告'){
-                    window.location = basic_url+'/report?taskid='+taskId;
+                    window.location = basic_url+'/report?taskid='+taskId+'&time='+time;
                 }else{
                     return false;
                 }
