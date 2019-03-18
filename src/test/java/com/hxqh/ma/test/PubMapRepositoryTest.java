@@ -27,7 +27,7 @@ public class PubMapRepositoryTest {
     private String username = "hklhai@163.com";
     private String password = "wy85151918";
 
-    @Test
+//    @Test
     public void testMail() throws Exception {
 
 
