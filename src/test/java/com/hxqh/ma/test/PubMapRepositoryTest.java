@@ -1,16 +1,14 @@
 package com.hxqh.ma.test;
 
-import com.hxqh.ma.model.PubMap;
 import com.hxqh.ma.repository.PubMapRepository;
-import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
+
 
 /**
  * Created by Ocean lin on 2017/7/3.
@@ -22,6 +20,50 @@ public class PubMapRepositoryTest {
 
     @Resource
     private PubMapRepository pubMapRepository;
+
+    private String receiveMail = "linh@bjhxqh.com";
+
+    private String serverName = "smtp.163.com";
+    private String username = "hklhai@163.com";
+    private String password = "wy85151918";
+
+    @Test
+    public void testMail() throws Exception {
+
+
+        // 1.创建一个程序与邮件服务器会话对象 Session
+        Properties props = new Properties();
+        props.setProperty("mail.transport.protocol", "SMTP");
+        props.setProperty("mail.host", "smtp.163.com");
+        // 指定验证为true是否需要身份验证
+        props.setProperty("mail.smtp.auth", "true");
+
+        // 创建验证器
+        Authenticator auth = new Authenticator() {
+            public PasswordAuthentication getPasswordAuthentication() {
+                // 密码验证
+//                return new PasswordAuthentication("邮箱账号不包括@126.com之类的后缀", "授权码");
+                return new PasswordAuthentication("15030268371", "bqcenter123456");
+            }
+        };
+
+        Session session = Session.getInstance(props, auth);
+        // 开启Session的debug模式，这样就可以查看到程序发送Email的运行状态
+        // 2.创建一个Message，它相当于是邮件内容
+        Message message = new MimeMessage(session);
+
+        message.setFrom(new InternetAddress("15030268371@163.com")); // 设置发送者
+        // 设置发送方式与接收者
+        message.setRecipient(Message.RecipientType.TO, new InternetAddress("linh@bjhxqh.com"));
+
+        message.setSubject("数据采集异常");
+
+        message.setContent("数据采集异常", "text/html;charset=utf-8");
+
+        // 3.创建 Transport用于将邮件发送
+        Transport.send(message);
+    }
+
 
 //
 //    @Test

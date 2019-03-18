@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * @author Lin
- *         日期时间工具类
+ * 日期时间工具类
  */
 public class DateUtils {
 
@@ -103,6 +103,22 @@ public class DateUtils {
     public static String getTodayDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_STRING);
         return dateFormat.format(new Date());
+    }
+
+
+    /**
+     * 获取明天日期（yyyy-MM-dd）
+     *
+     * @return 当天日期
+     */
+    public static String getTomorrowDate() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.DAY_OF_YEAR, +1);
+
+        Date date = cal.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_STRING);
+        return dateFormat.format(date);
     }
 
     /**

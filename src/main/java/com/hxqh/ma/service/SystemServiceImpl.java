@@ -13,7 +13,9 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Ocean lin on 2018/4/8.
@@ -35,6 +37,7 @@ public class SystemServiceImpl implements SystemService {
     private TransportClient client;
     @Autowired
     private StatusRepository statusRepository;
+
 
     @Override
     public User findUserById(String name) {

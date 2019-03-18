@@ -15,7 +15,13 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.aggregations.metrics.sum.Sum;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,11 +35,11 @@ import java.util.Map;
 
 /**
  * Created by Ocean lin on 2017/7/1.
+ *
+ * @author Lin
  */
-
 @RestController
 public class DataController {
-
 
     @Autowired
     private TransportClient client;
@@ -167,5 +173,77 @@ public class DataController {
         }
         return new ResponseEntity(result, HttpStatus.OK);
     }
+
+
+    @PostMapping("/group/book")
+    @ResponseBody
+    public ResponseEntity book() {
+        RangeQueryBuilder rangequerybuilder = QueryBuilders
+                .rangeQuery("addTime")
+                .from("2019-3-18").to("2019-3-19");
+        //生成DSL查询语句
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        sourceBuilder.query(rangequerybuilder);
+
+        SearchRequestBuilder responsebuilder = client
+                .prepareSearch("front_book_index")
+                .setTypes("front_book_type");
+        SearchResponse response = responsebuilder
+                .setQuery(QueryBuilders.boolQuery()
+                        .must(rangequerybuilder))
+                .addAggregation(AggregationBuilders.terms("userAgg").size(50).field("category")
+                        //求和要放到最内层的分组语句里面
+                        .subAggregation(AggregationBuilders.sum("sumAgg").field("numvalue")))
+                .setFrom(0).setSize(50)
+                .setExplain(true)
+                .execute()
+                .actionGet();
+
+
+        Terms userAgg = response.getAggregations().get("userAgg");
+        for (Terms.Bucket entry : userAgg.getBuckets()) {
+            Sum sum = entry.getAggregations().get("sumAgg");
+            System.out.println("user:" + entry.getKey() + "----------sum:" + sum.getValue());
+        }
+
+        return new ResponseEntity(null, HttpStatus.OK);
+    }
+
+
+
+    @PostMapping("/group/film")
+    @ResponseBody
+    public ResponseEntity group() {
+        RangeQueryBuilder rangequerybuilder = QueryBuilders
+                .rangeQuery("addTime")
+                .from("2019-3-17 00:00:01").to("2019-3-18 00:00:03");
+        //生成DSL查询语句
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        sourceBuilder.query(rangequerybuilder);
+
+        SearchRequestBuilder responsebuilder = client
+                .prepareSearch("front_film")
+                .setTypes("film");
+        SearchResponse response = responsebuilder
+                .setQuery(QueryBuilders.boolQuery()
+                        .must(rangequerybuilder))
+                .addAggregation(AggregationBuilders.terms("userAgg").size(50).field("category")
+                        //求和要放到最内层的分组语句里面
+                        .subAggregation(AggregationBuilders.sum("sumAgg").field("numvalue")))
+                .setFrom(0).setSize(50)
+                .setExplain(true)
+                .execute()
+                .actionGet();
+
+
+        Terms userAgg = response.getAggregations().get("userAgg");
+        for (Terms.Bucket entry : userAgg.getBuckets()) {
+            Sum sum = entry.getAggregations().get("sumAgg");
+            System.out.println("user:" + entry.getKey() + "----------sum:" + sum.getValue());
+        }
+
+        return new ResponseEntity(null, HttpStatus.OK);
+    }
+
 
 }

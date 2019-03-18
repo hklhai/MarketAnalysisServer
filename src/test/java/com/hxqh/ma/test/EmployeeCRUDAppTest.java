@@ -1,19 +1,27 @@
 package com.hxqh.ma.test;
 
 import com.hxqh.ma.common.Constants;
-import org.elasticsearch.action.delete.DeleteResponse;
-import org.elasticsearch.action.get.GetResponse;
-import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.action.update.UpdateResponse;
+import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.TransportAddress;
-import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.RangeQueryBuilder;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Ocean lin on 2017/10/16.
@@ -31,16 +39,19 @@ public class EmployeeCRUDAppTest {
 //        client = new PreBuiltTransportClient(settings)
 //                .addTransportAddress(new TransportAddress(
 //                        InetAddress.getByName(Constants.HOST_SPARK3), Constants.ES_PORT));
-//
-////		createEmployee(client);
-////		getEmployee(client);
-////		updateEmployee(client);
-////		deleteEmployee(client);
-//
-////        client.close();
+
+//		createEmployee(client);
+//		getEmployee(client);
+//		updateEmployee(client);
+//		deleteEmployee(client);
+
+//        client.close();
 //    }
-//
-//    /**
+
+
+
+
+    //    /**
 //     * 创建员工信息（创建一个document）
 //     */
 //    @Test

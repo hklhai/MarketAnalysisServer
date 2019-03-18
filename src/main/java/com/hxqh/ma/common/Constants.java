@@ -54,4 +54,11 @@ public interface Constants {
     String PARAM_END_DATE = "endTime";
     String PARAM_CATEGORY = "category";
     String PARAM_TITLE = "title";
+
+    String FRONT_FILM = "front_film";
+    String FRONT_FILM_TYPE = "film";
+
+    String FRONT_BOOK_INDEX = "front_book_index";
+    String FRONT_BOOK_TYPE = "front_book_type";
+
 }
